@@ -17,7 +17,13 @@ $routes->get('/login', 'Auth::loginForm');                // Form login
 $routes->post('/login', 'Auth::login');                   // Proses login
 $routes->get('/logout', 'Auth::logout');                  // Proses logout
 $routes->get('/admin', 'Dashboard::admin');
-$routes->get('/customer', 'Dashboard::customer');
+$routes->get('/customer', 'CustomerController::index');
+$routes->get('/motor', 'CustomerController::motor');
+$routes->get('customer/beli/(:num)', 'CustomerController::beli/$1');
+$routes->get('/pembayaran', 'Pembayaran::index');
+$routes->post('/pembayaran/upload', 'Pembayaran::upload');
+
+
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
 //halaman keranjang
 $routes->get('/keranjang', 'Keranjang::index');
