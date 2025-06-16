@@ -6,6 +6,7 @@
 <ul>
     <li><a href="/motor">Lihat Daftar Motor</a></li>
     <li><a href="/pembayaran">Upload Bukti Pembayaran</a></li>
+    <li><a href="/keranjang">Keranjang Belanja</a></li>
     <li><a href="/logout">Logout</a></li>
 </ul>
 

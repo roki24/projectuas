@@ -20,3 +20,7 @@ $routes->get('/admin', 'Dashboard::admin');
 $routes->get('/customer', 'Dashboard::customer');
 // Halaman dashboard setelah login (contoh: untuk customer)
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+//halaman keranjang
+$routes->get('/keranjang', 'Keranjang::index');
+$routes->get('/keranjang/tambah/(:num)', 'Keranjang::tambah/$1');
+$routes->get('/keranjang/hapus/(:num)', 'Keranjang::hapus/$1');
