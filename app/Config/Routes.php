@@ -21,7 +21,8 @@ $routes->get('/customer', 'CustomerController::index');
 $routes->get('/motor', 'CustomerController::motor');
 $routes->get('customer/beli/(:num)', 'CustomerController::beli/$1');
 $routes->get('/pembayaran', 'Pembayaran::index');
-$routes->post('/pembayaran/upload', 'Pembayaran::upload');
+$routes->post('pembayaran/simpan', 'Pembayaran::simpan');
+
 
 
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
