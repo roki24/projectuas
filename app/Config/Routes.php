@@ -19,6 +19,11 @@ $routes->get('/logout', 'Auth::logout');                  // Proses logout
 $routes->get('/admin', 'Dashboard::admin');
 $routes->get('/customer', 'Dashboard::customer');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+//halaman keranjang
+$routes->get('/keranjang', 'Keranjang::index');
+$routes->get('/keranjang/tambah/(:num)', 'Keranjang::tambah/$1');
+$routes->get('/keranjang/hapus/(:num)', 'Keranjang::hapus/$1');
+// Halaman utama daftar motor
 $routes->get('/daftar_motor', 'AdminController::daftar_motor');
 $routes->get('/motor/tambah', 'AdminController::tambah_motor');
 $routes->post('/motor/simpan', 'AdminController::simpan_motor');
