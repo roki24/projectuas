@@ -4,7 +4,7 @@
 <p>Selamat datang, <?= session('nama') ?>!</p>
 
 <ul>
-    <li><a href="/motor">Kelola Data Motor</a></li>
+    <li><a href="/daftar_motor">Kelola Data Motor</a></li>
     <li><a href="/transaksi">Lihat Data Transaksi</a></li>
     <li><a href="/verifikasi">Verifikasi Pembayaran</a></li>
     <li><a href="/logout">Logout</a></li>
