@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MotorModel;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\Files\UploadedFile;
 
 class AdminController extends BaseController
 {
@@ -47,41 +48,53 @@ class AdminController extends BaseController
     }
 
     // Menampilkan form edit
-    public function edit_motor($id)
-    {
-        $motorModel = new MotorModel();
-        $data['motor'] = $motorModel->find($id);
-        return view('form_edit_motor', $data);
-    }
-
-    // Menyimpan update data motor
-    public function update_motor($id)
+    public function edit($id)
     {
         $motorModel = new MotorModel();
         $motor = $motorModel->find($id);
 
-        // Cek jika ada upload foto baru
-        $foto = $this->request->getFile('foto');
-        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            $namaFoto = $foto->getRandomName();
-            $foto->move('uploads', $namaFoto);
-        } else {
-            $namaFoto = $motor['foto']; // tetap gunakan foto lama
+        if (!$motor) {
+            return redirect()->to('/daftar_motor')->with('error', 'Data tidak ditemukan.');
         }
 
-        // Update data
-        $motorModel->update($id, [
-            'merk'     => $this->request->getPost('merk'),
-            'tipe'     => $this->request->getPost('tipe'),
-            'tahun'    => $this->request->getPost('tahun'),
-            'warna'    => $this->request->getPost('warna'),
-            'harga'    => $this->request->getPost('harga'),
-            'kondisi'  => $this->request->getPost('kondisi'),
-            'stok'     => $this->request->getPost('stok'),
-            'foto'     => $namaFoto,
-        ]);
+        return view('form_edit_motor', ['motor' => $motor]);
+    }
 
-        return redirect()->to('/daftar_motor');
+    // Menyimpan update data motor
+    public function update($id)
+    {
+        $motorModel = new MotorModel();
+        $motor = $motorModel->find($id);
+
+        if (!$motor) {
+            return redirect()->to('/daftar_motor')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $data = [
+            'merk' => $this->request->getPost('merk'),
+            'tipe' => $this->request->getPost('tipe'),
+            'tahun' => $this->request->getPost('tahun'),
+            'warna' => $this->request->getPost('warna'),
+            'harga' => $this->request->getPost('harga'),
+            'kondisi' => $this->request->getPost('kondisi'),
+            'stok' => $this->request->getPost('stok'),
+        ];
+
+        // Cek apakah ada file baru diupload
+        $foto = $this->request->getFile('foto');
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            $newName = $foto->getRandomName();
+            $foto->move('uploads/', $newName);
+            $data['foto'] = $newName;
+
+            // Hapus foto lama (opsional)
+            if (!empty($motor['foto']) && file_exists('uploads/' . $motor['foto'])) {
+                unlink('uploads/' . $motor['foto']);
+            }
+        }
+
+        $motorModel->update($id, $data);
+        return redirect()->to('/daftar_motor')->with('success', 'Data berhasil diperbarui.');
     }
 
     // Menghapus data motor
@@ -91,9 +104,9 @@ class AdminController extends BaseController
         $motor = $motorModel->find($id);
 
         // Hapus file foto jika ada
-        if ($motor && file_exists('uploads/' . $motor['foto'])) {
-            unlink('uploads/' . $motor['foto']);
-        }
+        // if ($motor && file_exists('uploads/' . $motor['foto'])) {
+        //     unlink('uploads/' . $motor['foto']);
+        // }
 
         $motorModel->delete($id);
         return redirect()->to('/daftar_motor');

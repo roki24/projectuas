@@ -27,6 +27,6 @@ $routes->get('/keranjang/hapus/(:num)', 'Keranjang::hapus/$1');
 $routes->get('/daftar_motor', 'AdminController::daftar_motor');
 $routes->get('/motor/tambah', 'AdminController::tambah_motor');
 $routes->post('/motor/simpan', 'AdminController::simpan_motor');
-$routes->get('/motor/edit/(:num)', 'AdminController::edit_motor/$1');
-$routes->post('/motor/update/(:num)', 'AdminController::update_motor/$1');
+$routes->get('/motor/edit/(:num)', 'AdminController::edit/$1');
+$routes->post('/motor/update/(:num)', 'AdminController::update/$1');
 $routes->get('/motor/hapus/(:num)', 'AdminController::hapus_motor/$1');

@@ -1,7 +1,9 @@
 <?= view('template/header') ?>
 
 <h2>Kelola Data Motor</h2>
-<a href="/motor/tambah">+ Tambah Data Motor</a>
+<p><a href="/admin">Kembali</a></p>
+
+<a href="/motor/tambah">Tambah Data Motor</a>
 
 <table border="1" cellpadding="10" cellspacing="0">
     <thead>
