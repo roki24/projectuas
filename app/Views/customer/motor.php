@@ -272,6 +272,10 @@
             <h2>🏍️ Daftar Motor</h2>
             <p>Temukan motor impian Anda dengan harga terbaik</p>
         </div>
+        <!-- <div style="text-align: right; margin-bottom: 1rem;">
+            <a href="<?= base_url('cart') ?>" class="btn-cart">🛒 Lihat Keranjang</a>
+        </div> -->
+
         
         <div class="table-container">
             <table class="modern-table">
@@ -310,14 +314,26 @@
                         <td>
                             <?php if ($m['stok'] > 0): ?>
                                 <a href="<?= base_url('customer/beli/' . $m['id_motor']) ?>" class="btn btn-success">Beli</a>
+                                <button class="btn btn-warning btn-keranjang"
+                                data-id="<?= $m['id_motor'] ?>"
+                                data-nama="<?= esc($m['merk'] . ' ' . $m['tipe']) ?>"
+                                data-harga="<?= esc($m['harga']) ?>">
+                                🛒
+                            </button>
+
                             <?php else: ?>
                                 <span style="color:#e53e3e; font-weight: 600;">Stok Habis</span>
                             <?php endif; ?>
                         </td>
+
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <div id="keranjang" style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                <h3>🛒 Keranjang Anda</h3>
+                <ul id="daftar-keranjang"></ul>
+            </div>
         </div>
     </div>
 
@@ -333,5 +349,28 @@
             });
         });
     </script>
+    <script>
+    document.querySelectorAll('.btn-keranjang').forEach(button => {
+        button.addEventListener('click', () => {
+            const nama = button.getAttribute('data-nama');
+            const harga = button.getAttribute('data-harga');
+            const id = button.getAttribute('data-id');
+
+            const daftar = document.getElementById('daftar-keranjang');
+
+            const item = document.createElement('li');
+            item.innerHTML = `
+                ${nama} - Rp ${parseInt(harga).toLocaleString('id-ID')}
+                <a href="/customer/beli/${id}" class="btn btn-success" style="margin-left: 10px; padding: 6px 12px; font-size: 0.75rem; border-radius: 10px;">
+                    Beli
+                </a>
+            `;
+
+            daftar.appendChild(item);
+        });
+    });
+</script>
+
+
 </body>
 </html>

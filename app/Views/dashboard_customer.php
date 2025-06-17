@@ -346,9 +346,13 @@
 <body>
 
 <div class="dashboard-container">
-    <div class="dashboard-header">
+    <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center;">
         <h2 class="dashboard-title">🏍️ Dashboard Customer</h2>
+        <a href="/riwayat" class="btn-riwayat" style="background-color: #4CAF50; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px;">
+            📜 Riwayat Pembelian
+        </a>
     </div>
+
 
     <div class="welcome-section">
         <div class="welcome-content">

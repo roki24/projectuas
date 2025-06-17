@@ -77,4 +77,14 @@ public function saveBukti()
     return redirect()->back()->with('message', 'Upload gagal!');
 }
 
+public function riwayat()
+{
+    $transaksiModel = new TransaksiModel();
+    $id_user = session()->get('id_user');
+
+    $data['riwayat'] = $transaksiModel->getByUser($id_user);
+
+    return view('customer/riwayat', $data);
+}
+
 }

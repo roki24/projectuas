@@ -33,6 +33,7 @@ class Auth extends BaseController
             } else {
                 return redirect()->to('/customer');
             }
+
         }
 
         return redirect()->back()->with('error', 'Username atau password salah.');
